@@ -26,7 +26,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields):
+    def __init__(self, fields: List[str]):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
@@ -35,5 +35,5 @@ class RedactingFormatter(logging.Formatter):
         Filters values in incoming log records using filter_datum
         '''
         obfuscated = filter_datum(self.fields, self.REDACTION,
-                                  super(RedactingFormatter, self).format(record), self.SEPARATOR)
+                                  super().format(record), self.SEPARATOR)
         return (obfuscated)
