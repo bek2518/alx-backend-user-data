@@ -11,8 +11,8 @@ def filter_datum(fields, redaction, message, separator):
     Function that takes arguments returns log message obfuscated
     '''
     for field in fields:
-        regex = '{}=.+?(?={})'.format(field, re.escape(separator))
-        message = re.sub(regex, '{}={}'.format(field, redaction), message)
+        mess = re.sub('{}=.+?{}'.format(field, separator),
+                      '{}={}{}'.format(field, redaction, separator), mess)
     return message
 
 
