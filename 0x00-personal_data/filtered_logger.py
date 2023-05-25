@@ -10,10 +10,10 @@ def filter_datum(fields, redaction, message, separator):
     '''
     Function that takes arguments returns log message obfuscated
     '''
-    for field in fields:
-        mess = re.sub('{}=.+?{}'.format(field, separator),
-                      '{}={}{}'.format(field, redaction, separator), message)
-    return mess
+    for fld in fields:
+        message = re.sub('{}=.+?{}'.format(fld, separator),
+                         '{}={}{}'.format(fld, redaction, separator), message)
+    return message
 
 
 class RedactingFormatter(logging.Formatter):
