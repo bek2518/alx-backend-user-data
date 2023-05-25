@@ -73,3 +73,29 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         database=DB_NAME
     )
     return (cxn)
+
+
+def main():
+    '''
+    Function that obtains database connection using get_db and retrieve
+    all row in the users table and display each row under a filtered format
+    '''
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    logger = get_logger()
+    for row in cursor:
+        message = 'name={};email={};phone={};ssn={};password={};\
+                    ip={};last_login={};user_agent={}'.\
+                    format(row[0], row[1], row[2], row[3],
+                           row[4], row[5], row[6], row[7])
+        logger.info(message)
+    cursor.close()
+    db.close()
+
+
+if __name__ == '__main__':
+    '''
+    Runs main function only when moudle executed
+    '''
+    main()
