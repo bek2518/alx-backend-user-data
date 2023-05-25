@@ -5,6 +5,8 @@ Project on re library, and logger
 import re
 from typing import List
 import logging
+import mysql.connector.connection
+import os
 
 
 def filter_datum(fields: List[str],
@@ -54,3 +56,20 @@ def get_logger() -> logging.Logger:
     ch.setFormatter(RedactingFormatter(PII_FIELDS))
     user_data.addHandler(ch)
     return user_data
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    '''
+    Function that returns connector to a database
+    '''
+    USERNAME = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+    PASSWORD = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+    HOST = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+    DB_NAME = os.getenv('PERSONAL_DATA_DB_NAME')
+    cxn = mysql.connector.connect(
+        username=USERNAME,
+        password=PASSWORD,
+        host=HOST,
+        database=DB_NAME
+    )
+    return (cxn)
