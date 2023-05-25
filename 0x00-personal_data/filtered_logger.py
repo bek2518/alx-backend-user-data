@@ -38,3 +38,19 @@ class RedactingFormatter(logging.Formatter):
         obfuscated = filter_datum(self.fields, self.REDACTION,
                                   message, self.SEPARATOR)
         return (obfuscated)
+
+
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
+
+
+def get_logger() -> logging.Logger:
+    '''
+    Function that takes no argument and returns logging.Logger object
+    '''
+    user_data = logging.getLogger('user_data')
+    user_data.setLevel(logging.INFO)
+    user_data.propagate = False
+    ch = logging.StreamHandler()
+    ch.setFormatter(RedactingFormatter(PII_FIELDS))
+    user_data.addHandler(ch)
+    return user_data
