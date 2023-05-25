@@ -12,7 +12,7 @@ def filter_datum(fields, redaction, message, separator):
     '''
     for field in fields:
         mess = re.sub('{}=.+?{}'.format(field, separator),
-                      '{}={}{}'.format(field, redaction, separator), mess)
+                      '{}={}{}'.format(field, redaction, separator), message)
     return mess
 
 
