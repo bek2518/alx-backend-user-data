@@ -54,7 +54,18 @@ class BasicAuth(Auth):
             return (None, None)
 
         credentials = decoded_base64_authorization_header.split(':')
-        return (credentials[0], credentials[1])
+        user_email = credentials[0]
+        user_pwd = ''
+        length = len(credentials)
+        if length > 2:
+            for i in range(1, length):
+                if i != (length - 1):
+                    user_pwd = user_pwd + credentials[i] + ':'
+                else:
+                    user_pwd = user_pwd + credentials[i]
+        elif length == 2:
+            user_pwd = credentials[1]
+        return (user_email, user_pwd)
 
     def user_object_from_credentials(self, user_email: str,
                                      user_pwd: str) -> TypeVar('User'):
