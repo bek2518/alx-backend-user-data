@@ -15,7 +15,8 @@ class Auth:
         Public method that returns true if the path is not in the list of
         strings excluded_paths
         '''
-        if (path is None) or (excluded_paths is None):
+        if (path is None) or (excluded_paths is None) or\
+           (len(excluded_paths) == 0):
             return True
 
         if path[-1] != '/':
@@ -31,7 +32,6 @@ class Auth:
                 if path == single_path:
                     return False
                 return True
-
         return False
 
     def authorization_header(self, request=None) -> str:
