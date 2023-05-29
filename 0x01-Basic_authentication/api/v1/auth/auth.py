@@ -22,16 +22,8 @@ class Auth:
         if path[-1] != '/':
             path += '/'
 
-        for single_path in excluded_paths:
-            if single_path[-1] == '*':
-                length = len(single_path) - 1
-                if path.startswith(single_path[:length]):
-                    return False
-                return True
-            else:
-                if path == single_path:
-                    return False
-                return True
+        if path not in excluded_paths:
+            return True
         return False
 
     def authorization_header(self, request=None) -> str:
