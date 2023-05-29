@@ -28,10 +28,6 @@ class Auth:
                 if path.startswith(single_path[:length]):
                     return False
                 return True
-            else:
-                if path == single_path:
-                    return False
-                return True
 
         if path not in excluded_paths:
             return True
