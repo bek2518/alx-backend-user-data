@@ -21,8 +21,16 @@ class Auth:
         if path[-1] != '/':
             path += '/'
 
-        if path not in excluded_paths:
-            return True
+        for single_path in excluded_paths:
+            if single_path[-1] == '*':
+                length = len(single_path) - 1
+                if path.startswith(single_path[:length]):
+                    return False
+                return True
+            else:
+                if path == single_path:
+                    return False
+                return True
 
         return False
 
