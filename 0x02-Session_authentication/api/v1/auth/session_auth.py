@@ -12,11 +12,7 @@ class SessionAuth(Auth):
     if everything inherits correctly without any overloading and validate
     the "switch" by using environment variables
     '''
-    def __init__(self):
-        '''
-        Initialize class
-        '''
-        self.user_id_by_session_id = {}
+    user_id_by_session_id = {}
 
     def create_session(self, user_id: str = None) -> str:
         '''
