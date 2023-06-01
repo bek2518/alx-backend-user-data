@@ -18,10 +18,7 @@ class SessionAuth(Auth):
         '''
         Method that creates a session ID for a user_id
         '''
-        if user_id is None:
-            return None
-
-        if type(user_id) != str:
+        if (user_id is None) or (type(user_id) != str):
             return None
 
         session_id = str(uuid4())
@@ -32,10 +29,7 @@ class SessionAuth(Auth):
         '''
         Mehod that returns a User ID based on a Session ID
         '''
-        if session_id is None:
-            return None
-
-        if type(session_id) != str:
+        if (session_id is None) or (type(session_id) != str):
             return None
 
         user_id = self.user_id_by_session_id.get(session_id)

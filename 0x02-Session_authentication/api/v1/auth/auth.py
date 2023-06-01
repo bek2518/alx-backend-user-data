@@ -4,6 +4,7 @@ Holds class that will be used to implement authentication system
 '''
 from flask import request
 from typing import List, TypeVar
+import os
 
 
 class Auth:
@@ -47,3 +48,13 @@ class Auth:
         Public method that returns None for now
         '''
         return None
+
+    def session_cookie(self, request=None):
+        '''
+        Method that returns a cookie value from a request
+        '''
+        if request is None:
+            return None
+        session_name = os.getenv('SESSION_NAME')
+        cookie = request.cookies.get(session_name)
+        return cookie
