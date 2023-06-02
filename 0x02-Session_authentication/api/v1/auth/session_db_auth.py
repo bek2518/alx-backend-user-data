@@ -14,6 +14,11 @@ class SessionDBAuth(SessionExpAuth):
         Method that creates and stores new instance of UserSession and
         returns session id
         '''
+        session_id = super().create_session(user_id)
+        if not session_id:
+            return None
+
+        
     
     def user_id_for_session_id(self, session_id=None):
         '''
