@@ -16,7 +16,7 @@ class SessionExpAuth(SessionAuth):
         Initialized the class
         '''
         try:
-            self.session_duration = os.getenv('SESSION_DURATION')
+            self.session_duration = int(os.getenv('SESSION_DURATION'))
         except Exception:
             self.session_duration = 0
 
@@ -45,7 +45,7 @@ class SessionExpAuth(SessionAuth):
         if self.session_duration <= 0:
             return user_id
 
-        created_at = self.user_id_for_session_id[session_id]('created_at')
+        created_at = self.user_id_by_session_id[session_id]['created_at']
         if not created_at:
             return None
 
