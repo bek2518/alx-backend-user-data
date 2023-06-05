@@ -9,6 +9,8 @@ from sqlalchemy.ext.declarative import declarative_base
 
 
 Base = declarative_base()
+
+
 class User(Base):
     '''
     Class that creates table users using sqlalchemy
