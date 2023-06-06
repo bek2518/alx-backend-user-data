@@ -55,10 +55,10 @@ def logout():
     '''
     session_id = request.cookies.get("session_id")
     try:
-        AUTH.find_user_by(session_id=session_id)
+        user = AUTH.find_user_by(session_id=session_id)
     except NoResultFound:
         abort(403)
-    AUTH.destroy_session(session_id)
+    AUTH.destroy_session(user.id)
     return redirect(url_for('index'))
 
 
