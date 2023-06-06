@@ -4,7 +4,6 @@ Basic Flask app
 '''
 from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
-from sqlalchemy.orm.exc import NoResultFound
 
 
 app = Flask(__name__)
@@ -54,9 +53,8 @@ def logout():
     Function that implements DELETE /sessions to destroy the session
     '''
     session_id = request.cookies.get("session_id")
-    try:
-        user = AUTH.find_user_by(session_id=session_id)
-    except Exception:
+    user = AUTH.get_user_from_session_id(session_id=session_id)
+    if user is None:
         abort(403)
     AUTH.destroy_session(user.id)
     return redirect('/')
