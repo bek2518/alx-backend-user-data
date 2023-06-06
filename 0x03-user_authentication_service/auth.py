@@ -51,8 +51,9 @@ class Auth:
             return True
         return False
 
+
 def _generate_uuid() -> str:
     '''
     Function that generated uuid
     '''
-    return uuid4()
+    return str(uuid4())
