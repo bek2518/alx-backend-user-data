@@ -30,7 +30,7 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str, hashed_password: str) -> object:
+    def add_user(self, email: str, hashed_password: str) -> User:
         '''
         Method that saves the user to the database
         '''
@@ -39,7 +39,7 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> User:
         '''
         Method that takes arbitrary keyword argument and returns the
         first row foind in the users table
@@ -51,3 +51,17 @@ class DB:
         if user is None:
             raise NoResultFound
         return user
+    
+    def update_user(self, user_id: int, **kwargs) -> None:
+        '''
+        Finds user using find_use_by and updated the value passed as
+        kwargs
+        '''
+        user = self.find_user_by(id=user_id)
+        attributes = ['email', 'hashed_password', 'session_id', 'reset_token']
+        for key, value in kwargs.items():
+            if key not in attributes:
+                raise ValueError
+            setattr(user, key, value)
+        self._session.commit()
+        return None
