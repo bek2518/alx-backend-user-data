@@ -90,12 +90,11 @@ def update_password():
     '''
     Function that implements PUT /reset_password that updates the password
     '''
-    email = request.form['email']
-    reset_token = request.form['reset_token']
-    new_password = request.form['new_password']
+    email = request.form["email"]
+    reset_token = request.form["reset_token"]
+    new_password = request.form["new_password"]
     try:
-        AUTH.update_password(reset_token=reset_token,
-                             new_password=new_password)
+        AUTH.update_password(reset_token, new_password)
     except ValueError:
         abort(403)
     return jsonify({"email": email, "message": "Password updated"}), 200
