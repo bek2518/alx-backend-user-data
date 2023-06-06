@@ -33,7 +33,7 @@ def users():
 
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
-def login():
+def login() -> str:
     '''
     Function that implements POST /sessions to validate login information
     '''
