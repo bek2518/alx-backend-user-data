@@ -2,7 +2,7 @@
 '''
 Basic Flask app
 '''
-from flask import Flask, jsonify, request, abort, redirect, url_for
+from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -56,10 +56,10 @@ def logout():
     session_id = request.cookies.get("session_id")
     try:
         user = AUTH.find_user_by(session_id=session_id)
-    except NoResultFound:
+    except Exception:
         abort(403)
     AUTH.destroy_session(user.id)
-    return redirect(url_for('index'))
+    return redirect('/')
 
 
 if __name__ == "__main__":
