@@ -32,36 +32,11 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """Method that saves the user to the database
-        """
+        '''
+        Method that saves the user to the database
+        '''
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
         self._session.commit()
+    
         return user
-
-    def find_user_by(self, **kwargs) -> User:
-        '''
-        Method that takes arbitrary keyword argument and returns the
-        first row foind in the users table
-        '''
-        try:
-            user = self._session.query(User).filter_by(**kwargs).first()
-        except Exception:
-            raise InvalidRequestError
-        if user is None:
-            raise NoResultFound
-        return user
-
-    def update_user(self, user_id: int, **kwargs) -> None:
-        '''
-        Finds user using find_use_by and updated the value passed as
-        kwargs
-        '''
-        user = self.find_user_by(id=user_id)
-        attributes = ['email', 'hashed_password', 'session_id', 'reset_token']
-        for key, value in kwargs.items():
-            if key not in attributes:
-                raise ValueError
-            setattr(user, key, value)
-        self._session.commit()
-        return None
