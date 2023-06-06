@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """DB module
 """
 from sqlalchemy import create_engine
@@ -51,7 +52,7 @@ class DB:
         if user is None:
             raise NoResultFound
         return user
-    
+
     def update_user(self, user_id: int, **kwargs) -> None:
         '''
         Finds user using find_use_by and updated the value passed as
